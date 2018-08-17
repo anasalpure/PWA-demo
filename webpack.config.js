@@ -1,19 +1,28 @@
 const path = require('path');
+//const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const public_path =path.resolve(__dirname, 'public')
 
 module.exports = {
   mode: 'development', //or 'production'
-  entry: './js/main.js',
+
+  entry: './src/main.js',
+
   output: {
-    path: path.resolve(__dirname, 'public/js'),
+    path: path.resolve(__dirname, 'public/'),
     filename: 'app.js'
   },
 
   
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
+    contentBase: public_path ,
     publicPath: '/public'
   },
+
+  watchOptions: {
+    ignored: ['public', 'node_modules']
+  } ,
 
 
 
@@ -28,26 +37,37 @@ module.exports = {
         }
       },
 
-
-
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
- 
-      },
+        use: [
+          { loader: MiniCssExtractPlugin.loader ,    options: { publicPath: public_path }  },
+          'css-loader'
+        ]
+      } ,
 
       {
         test: /\.scss$/,
         use: [
+           MiniCssExtractPlugin.loader, //enstead default 'style-loader'
+          'css-loader',
+          'sass-loader',
+        ],
+      } ,
+   
+/*
+      {
+        test: /\.scss$/,
+        use: [
         {
-            loader: "style-loader"
+            loader: MiniCssExtractPlugin.loader, //enstead default 'style-loader'
+
         }, {
             loader: "css-loader"
         }, {
             loader: "sass-loader",
         }]
       },
-
+*/
       {
         test: /\.html$/,
         use: [
@@ -64,12 +84,29 @@ module.exports = {
     ]
   },
 
+  optimization: {
+    splitChunks: {
+        cacheGroups: {
+            js: {
+                test: /\.js$/,
+                name: "commons",
+                chunks: "all",
+                minChunks: 7,
+            },
+            css: {
+                test: /\.(css|sass|scss)$/,
+                name: "commons",
+                chunks: "all",
+                minChunks: 2,
+            }
+        }
+    }
+},
+
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "anas.css",
+      filename: "app.css",
     })
   ],
-
-
 
 };

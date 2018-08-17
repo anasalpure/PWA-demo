@@ -5,6 +5,7 @@ body {
     background-color: #333;
  }
 
+ 
 :focus{
    outline: none;
  }
@@ -13,8 +14,8 @@ body {
   font-family: 'Coda';
  }
   
-.content{
-  margin: 55px 0;
+.content {
+  padding: 45px 0;
 }
 
 .focusable{

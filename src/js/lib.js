@@ -1,7 +1,5 @@
-import './jquery' ;
-import '../scss/main.scss' ;
 
-
+import jQuery from './jquery' ;
 
 (function(){
     "use strict";
@@ -50,6 +48,21 @@ function ckickOnLink (event){
      
 
 }
+
+
+
+//navbar toggler actions
+//add listener to check box in toggler
+jQuery('.toggler').find('input').on('change',function(event){
+
+    let checked=event.target.checked;
+    if(checked)
+        jQuery('.navbar .collapse').fadeIn();
+    else
+        jQuery('.navbar .collapse').fadeOut();
+        
+  
+  });
 
 
 

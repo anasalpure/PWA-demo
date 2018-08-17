@@ -7,7 +7,8 @@
     "start": "webpack-dev-server --mode development --open --hot",
     "build_p": "webpack --mode production",
     "build": "webpack -d",
-    "server": "webpack-dev-server --open"
+    "server": "webpack-dev-server --open" ,
+    "watch" :"webpack --watch --info-verbosity verbose"
   },
   "author": "anas alpure",
   "dependencies": {},
